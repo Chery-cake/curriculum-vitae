@@ -18,7 +18,6 @@ A clean, modular LaTeX CV project. Your personal data lives in **one configurati
 │   ├── awards.tex
 │   ├── languages.tex
 │   └── interests.tex
-├── cv_template.tex          # Original single-file template (reference)
 ├── .latexmkrc               # Latexmk configuration
 ├── .github/workflows/
 │   └── latex.yml            # GitHub Actions: compile PDF on push
