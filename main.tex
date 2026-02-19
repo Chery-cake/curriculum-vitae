@@ -1,0 +1,70 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{catchfile}  % Used for conditional section inclusion
+
+% Customize section appearance
+\titleformat{\section}{\large\bfseries\color{blue}}{}{0em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{black}}{}{0em}{}
+
+% ---------------------------------------------------------------------------
+% Conditional section inclusion helper
+% ---------------------------------------------------------------------------
+% \cvsection{Title}{sections/filename.tex}
+% Reads the file, strips comment-only lines, and includes the section only
+% if there is real (non-comment) content. Empty or comment-only files produce
+% no output and no section header.
+% ---------------------------------------------------------------------------
+\newread\testread
+\newcommand{\cvsection}[2]{%
+  \CatchFileDef{\filecontent}{#2}{\endlinechar=-1 \catcode`\%=14 }%
+  \ifx\filecontent\empty\else
+    \section*{#1}%
+    \input{#2}%
+  \fi
+}
+
+% ---------------------------------------------------------------------------
+% Load user configuration (name, contact info, etc.)
+% ---------------------------------------------------------------------------
+\input{config}
+
+\begin{document}
+
+% --- Header: Name and Contact Information ---
+\begin{center}
+    {\LARGE\bfseries \cvname}\\
+    \vspace{2mm}
+    \href{mailto:\cvemail}{\cvemail} ~|~
+    \cvphone ~|~
+    \href{\cvgithub}{\cvgithubname} ~|~
+    \href{\cvlinkedin}{\cvlinkedinname}\\
+    \cvlocation
+\end{center}
+
+\vspace{6pt}
+
+% ---------------------------------------------------------------------------
+% CV Sections
+% ---------------------------------------------------------------------------
+% Each call to \cvsection{Title}{file} will only produce output when the
+% file contains real content. To hide a section, clear the file or leave
+% only comments in it. To add a new section, create a file in sections/
+% and add a \cvsection line below.
+% ---------------------------------------------------------------------------
+
+\cvsection{Professional Summary}{sections/summary.tex}
+\cvsection{Skills}{sections/skills.tex}
+\cvsection{Experience}{sections/experience.tex}
+\cvsection{Projects}{sections/projects.tex}
+\cvsection{Education}{sections/education.tex}
+\cvsection{Certifications}{sections/certifications.tex}
+\cvsection{Awards and Honors}{sections/awards.tex}
+\cvsection{Languages}{sections/languages.tex}
+\cvsection{Interests}{sections/interests.tex}
+
+\end{document}
