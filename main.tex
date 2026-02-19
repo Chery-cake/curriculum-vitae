@@ -11,6 +11,9 @@
 \titleformat{\section}{\large\bfseries\color{blue}}{}{0em}{}
 \titleformat{\subsection}{\normalsize\bfseries\color{black}}{}{0em}{}
 
+% Reusable separator for contact line and elsewhere
+\newcommand{\cvsep}{~|~}
+
 % ---------------------------------------------------------------------------
 % Conditional section inclusion helper
 % ---------------------------------------------------------------------------
@@ -21,6 +24,8 @@
 % ---------------------------------------------------------------------------
 \newread\testread
 \newcommand{\cvsection}[2]{%
+  % \endlinechar=-1 suppresses end-of-line chars; \catcode`\%=14 treats % as
+  % a comment character so comment-only lines are stripped during the read.
   \CatchFileDef{\filecontent}{#2}{\endlinechar=-1 \catcode`\%=14 }%
   \ifx\filecontent\empty\else
     \section*{#1}%
@@ -39,9 +44,9 @@
 \begin{center}
     {\LARGE\bfseries \cvname}\\
     \vspace{2mm}
-    \href{mailto:\cvemail}{\cvemail} ~|~
-    \cvphone ~|~
-    \href{\cvgithub}{\cvgithubname} ~|~
+    \href{mailto:\cvemail}{\cvemail} \cvsep
+    \cvphone \cvsep
+    \href{\cvgithub}{\cvgithubname} \cvsep
     \href{\cvlinkedin}{\cvlinkedinname}\\
     \cvlocation
 \end{center}
